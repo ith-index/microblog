@@ -31,3 +31,16 @@
     flex: 1
   }
 }
+
+.errors {
+  color: #cc0000;
+  
+
+  ul {
+    padding-left: 16px;
+  }
+
+  li {
+    padding-left: 0;
+  }
+}
