@@ -1,0 +1,20 @@
+<header class='navbar'>
+  <% if logged_in? %>
+    <%= link_to 'Microblog', dashboard_path, class: 'home' %>
+  <% else %>
+    <%= link_to 'Microblog', root_path, class: 'home' %>
+  <% end %>
+  <nav class='nav'>
+    <% if logged_in? %>
+      <%= link_to 'Profile', current_user %>
+      <span class='divider'>|</span>
+      <%= link_to 'Others', users_path %>
+      <span class='divider'>|</span>
+      <%= link_to 'Log Out', log_out_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Sign Up', sign_up_path %>
+      <span class='divider'>|</span>
+      <%= link_to 'Log In', log_in_path %>
+    <% end %>
+  </nav>
+</header>

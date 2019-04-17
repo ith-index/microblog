@@ -1,0 +1,35 @@
+<% provide(:title, @user.username) %>
+<h1><%= @user.username %></h1>
+<div class='follow'>
+  <h2><%= @user.following.count %> Following</h2>
+  <h2><span id='follower-count'><%= pluralize(@user.followers.count, 'Follower') %><span></h2>
+</div>
+<% if current_user?(@user) %>
+  <%= render 'posts/form_new' %>
+<% else %>
+  <div id='follow-unfollow'>
+    <% if current_user.following.include?(@user) %>
+      <%= render 'follows/unfollow', user: @user %>
+    <% else %>
+      <%= render 'follows/follow', user: @user %>
+    <% end %>
+  </div>
+<% end %>
+<%= render 'posts/posts' %>
+
+
+<script type='text/javascript'>
+  var followUnfollow = document.getElementById('follow-unfollow');
+  var followerCount = document.getElementById('follower-count');
+  function attachListeners() {
+    var form = document.getElementsByTagName('form')[0]
+    form.addEventListener('ajax:success', function(event) {
+      var data = event.detail[0];
+      followerCount.innerHTML = data['follower_count'];
+      followUnfollow.innerHTML = data['html']
+      attachListeners();
+    });
+  }
+  attachListeners();
+</script>
+

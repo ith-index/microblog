@@ -1,0 +1,24 @@
+<div id='posts'>
+  <%= render @posts %>
+</div>
+
+<script type='text/javascript'>
+  var formNew = document.getElementById('new_post');
+  var posts = document.getElementById('posts');
+  if (formNew) {
+    formNew.addEventListener('ajax:success', function(event) {
+      var data = event.detail[0];
+      posts.innerHTML = data['html'] + posts.innerHTML;
+    });
+  }
+
+  var deletePosts = document.getElementsByClassName('delete-post');
+  for (var i = 0; i < deletePosts.length; i++) {
+    deletePosts[i].addEventListener('ajax:success', function(event) {
+      var data = event.detail[0];
+      var elementPost = document.getElementById('element-post-' + data['id']);
+      elementPost.parentElement.removeChild(elementPost);
+    });
+  }
+</script>
+

@@ -1,0 +1,33 @@
+.element-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .username {
+    color: black;
+    font-size: 1.25em;
+    font-weight: bold;
+    text-decoration: none;
+  }
+ 
+  .follow {
+    input[type='submit'] {
+      width: 100px;
+    }
+  }
+}
+
+.element-user + .element-user {
+  border-top: 2px solid #cccccc;
+  padding-top: 32px;
+  margin-top: 32px;
+}
+
+.follow {
+  display: flex;
+  flex-direction: row;
+
+  > * {
+    flex: 1
+  }
+}

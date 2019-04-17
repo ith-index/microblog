@@ -1,0 +1,10 @@
+<div class='element-post' id="element-post-<%= post.id %>">
+  <%= link_to post.user.username, post.user, class: 'username' %>
+  <p class='content'><%= post.content %></p>
+  <div class='footer'>
+    <p class='date'>Posted on <%= post.created_at.strftime('%B %d, %H:%M') %></p>
+    <% if current_user?(post.user) %>
+      <%= link_to 'Delete', post, method: :delete, remote: true, class: 'delete-post' %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class='form-post'>
+  <%= form_for @post, remote: true do |f| %> <%= f.text_area :content, placeholder: 'Content' %>
+    <%= f.submit 'Post', id: 'submit', disabled: true %>
+  <% end %>
+</div>
+
+<script type='text/javascript'>
+  var textArea = document.getElementById('post_content');
+  var submit = document.getElementById('submit');
+  textArea.addEventListener('input', function() {
+    textContent = textArea.value;
+    if (textContent.trim().length === 0) {
+      submit.disabled = true;
+    } else {
+      submit.disabled = false;
+    }
+  });
+
+  var form = document.getElementById('new_post');
+  form.addEventListener('ajax:success', function() {
+    textArea.value = '';
+  });
+</script>

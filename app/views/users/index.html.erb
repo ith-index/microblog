@@ -1,0 +1,39 @@
+<% provide(:title, 'Users') %>
+<h1>Users</h1>
+<% @users.each do |user| %>
+  <div class='element-user'>
+    <%= link_to user.username, user, class: 'username' %>
+    <div class='follow' id='<%= "element-user-#{user.id}" %>'>
+      <% if current_user.following.include?(user) %>
+        <%= render 'follows/unfollow', user: user %>
+      <% else %>
+        <%= render 'follows/follow', user: user %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<script type='text/javascript'>
+  attachListeners();
+  function attachListeners() {
+    var formFollows = document.getElementsByClassName('new_follow');
+    for (var i = 0; i < formFollows.length; i++) {
+      formFollows[i].addEventListener('ajax:success', function(event) {
+        var data = event.detail[0];
+        var elementUser = document.getElementById('element-user-' + data['id']);
+        elementUser.innerHTML = data['html']
+        attachListeners();
+      });
+    }
+    var destroyFollows = document.getElementsByClassName('edit_follow');
+    for (var i = 0; i < destroyFollows.length; i++) {
+      destroyFollows[i].addEventListener('ajax:success', function(event) {
+        var data = event.detail[0];
+        var elementUser = document.getElementById('element-user-' + data['id']);
+        elementUser.innerHTML = data['html']
+        attachListeners();
+      });
+    }
+  }
+</script>
+
